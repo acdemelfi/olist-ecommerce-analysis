@@ -35,3 +35,14 @@ The original dataset is available on Kaggle: [Brazilian E-Commerce Public Datase
 - **PostgreSQL** — data storage, profiling, cleaning, and SQL analysis
 - **Power BI** — data modeling, DAX measures, visualization, and dashboard development
 - **VS Code / Git / GitHub** — project organization, version control, and documentation
+
+## Data Preparation & Methodology
+
+Before beginning the business analysis, I profiled the dataset to understand the grain, relationships, missing values, and potential duplication within each table. Several methodological decisions were made to ensure that category and review metrics were calculated consistently:
+
+- **Review duplication:** Some orders contained multiple review records. For these orders, I retained the most recent review based on `review_answer_timestamp` as the best available representation of the customer's final recorded sentiment.
+- **Multi-category orders:** A small number of orders contained products from multiple categories, making it difficult to attribute an order-level review to a single category. These orders were excluded from category-level customer experience analysis.
+- **Poor reviews:** Reviews with scores of 1 or 2 stars were classified as poor reviews.
+- **Sample size:** Category-level review comparisons were limited to categories with at least 100 recorded reviews to reduce distortion from very small samples.
+- **Delivery performance:** Estimated delivery timestamps were recorded at midnight, so delivery performance was evaluated using calendar dates rather than exact timestamps.
+- **Metric denominators:** Delivery metrics were calculated across all eligible delivered orders, while review metrics were calculated only across orders with a recorded review.
