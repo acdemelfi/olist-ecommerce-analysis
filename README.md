@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-The Olist dataset contains real-world e-commerce data covering nearly 100,000 orders, including product categories, customer reviews, order fulfillment, and delivery performance. Using PostgreSQL and Power BI, I analyzed the data to identify patterns in commercial performance and customer experience and determine where potential business issues were concentrated. The analysis focuses on product-category performance, poor customer reviews, and the relationship between delivery delays and customer satisfaction, with the goal of turning these findings into actionable business insights.
+The Olist dataset contains real-world e-commerce data covering nearly 100,000 orders, including product categories, customer reviews, order fulfillment, and delivery performance. Using PostgreSQL and Power BI, I analyzed the data to explore patterns in commercial performance and customer experience, with the goal of identifying areas where the business could improve. The analysis focuses on product-category performance, poor customer reviews, and the relationship between delivery delays and customer satisfaction, with the goal of turning these findings into actionable business insights.
 
 ## Business Questions
 
@@ -45,7 +45,7 @@ Before beginning the business analysis, I profiled the dataset to understand the
 - **Poor reviews:** Reviews with scores of 1 or 2 stars were classified as poor reviews.
 - **Sample size:** Category-level review comparisons were limited to categories with at least 100 recorded reviews to reduce distortion from very small samples.
 - **Delivery performance:** Estimated delivery timestamps were recorded at midnight, so delivery performance was evaluated using calendar dates rather than exact timestamps.
-- **Metric denominators:** Delivery metrics were calculated across all eligible delivered orders, while review metrics were calculated only across orders with a recorded review.
+- **Metric denominators:** For category-level analysis, delivery metrics included all eligible delivered single-category orders, while review metrics included only those orders with a recorded review.
 
 ## Analysis & Key Findings
 
@@ -63,7 +63,7 @@ These findings demonstrate why sales volume and sales value should be considered
 
 I calculated the percentage of poor reviews (1–2 stars) for each product category, restricting comparisons to categories with at least 100 reviews.
 
-Categories such as Fashion Male Clothing, Office Furniture, and Audio exhibited particularly high poor-review rates. Some commercially important categories, including Bed, Bath & Table and Computers & Accessories, also showed elevated rates of negative feedback.
+Categories such as Fashion Male Clothing, Office Furniture, and Audio had some of the highest poor-review rates at 22.9%, 21.6%, and 21.2%, respectively. Some commercially important categories, including Bed, Bath & Table and Computers & Accessories, also showed elevated rates of negative feedback.
 
 These findings helped identify categories where customer-experience improvements could be investigated.
 
@@ -72,7 +72,7 @@ These findings helped identify categories where customer-experience improvements
 I examined the relationship between delivery performance and customer reviews, comparing on-time deliveries with late deliveries and then investigating how the length of a delay affected review outcomes.
 
 - Approximately **62% of late deliveries** received poor reviews, compared with **9% of on-time deliveries**.
-- Poor-review rates increased substantially as delays grew, reaching approximately **82% for deliveries delayed by 15–30 days**.
+- Poor-review rates increased substantially as delays grew, reaching about **82% for deliveries delayed by 15–30 days**.
 - The poor-review rate declined to approximately **68% for delays exceeding 30 days**, although this group contained fewer observations.
 
 These results reveal a strong association between delivery delays and negative customer feedback, although they do not establish that lateness caused the poor reviews.
@@ -81,9 +81,9 @@ These results reveal a strong association between delivery delays and negative c
 
 Finally, I combined category-level delivery performance and customer-review metrics to investigate whether differences in delivery delays aligned with differences in customer satisfaction.
 
-Although categories with higher late-delivery rates generally tended to have higher poor-review rates, the relationship was not consistent across all categories.
+Although categories with higher late-delivery rates generally also had higher poor-review rates, the relationship was not consistent across all categories.
 
-Some categories exhibited relatively high poor-review rates despite having comparatively modest late-delivery rates. This suggests that delivery performance alone does not explain all differences in customer satisfaction and that additional factors warrant investigation.
+Some categories exhibited relatively high poor-review rates despite having comparatively modest late-delivery rates. This suggests that delivery performance alone does not explain all differences in customer satisfaction and that other factors may also contribute to negative reviews.
 
 ## Business Recommendations
 
@@ -105,12 +105,12 @@ These recommendations identify areas for investigation rather than establishing 
 
 ## Limitations
 
-Several limitations should be considered when interpreting the results:
+It should be noted that several limitations should be considered when interpreting the results:
 
-- **Historical data:** The dataset covers 2016–2018. Findings describe historical performance and should not be assumed to represent Olist's current operations.
+- **Historical data:** As noted before, the dataset covers 2016–2018. Findings describe historical performance and should not be assumed to represent Olist's current operations.
 - **Observational analysis:** Relationships between delivery performance and customer reviews are associations, not evidence of causation.
 - **Commercial performance:** Sales value represents the sum of recorded product prices. The dataset does not contain the profit margins or operational costs required to determine profitability.
-- **Category attribution:** Orders containing products from multiple categories were excluded from category-level customer-experience analysis because their reviews could not be reliably attributed to one category.
+- **Category attribution:** Orders containing products from multiple categories were excluded from category-level customer-experience analysis because their reviews could not be reliably attributed to one category. While this was a small percent of the orders (~0.8%), it should still be noted. 
 - **Review selection:** For orders with multiple reviews, the most recent review was retained based on its recorded answer timestamp. This does not guarantee that it represents a revised or final customer opinion.
 - **Sample size:** Category-level comparisons were restricted to categories with at least 100 reviews. Categories with fewer reviews were excluded from these comparisons.
 - **Review availability:** Review metrics include only orders with recorded reviews, while delivery metrics include all eligible delivered single-category orders. These populations are not identical.
